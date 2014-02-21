@@ -4,9 +4,10 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
 
 	// Player fields
-	float move_force = 20f;
+	float move_force = 20f; // force to apply to player when movement key is pressed
 	float speed; // velocity vector magnitude
-	public Animator animator;
+	Vector2 direction = new Vector2(0f,0f); // player direction
+	public Animator animator; // Mechanim animator for the player
 
 	// Use this for initialization
 	void Start () {
@@ -21,8 +22,11 @@ public class PlayerController : MonoBehaviour {
 		animator.SetFloat ("speed", speed);
 
 		// Update direction
-		if (speed > 0)
-			transform.rotation = Quaternion.LookRotation(Vector3.forward, rigidbody2D.velocity);
+		direction.x = Input.GetAxis ("Horizontal");
+		direction.y = Input.GetAxis ("Vertical");
+		Quaternion qTo = Quaternion.LookRotation(Vector3.forward, direction);
+		if (direction.SqrMagnitude() > 0.1f)
+			transform.rotation = Quaternion.Slerp(transform.rotation, qTo, 15f * Time.deltaTime);
 
 		// TODO: Change key events to be handled with the input manager (using KeyCode) so player can remap keys in game
 		if (Input.GetKey("up")) {
@@ -39,7 +43,7 @@ public class PlayerController : MonoBehaviour {
 			rigidbody2D.AddForce(new Vector2(move_force * -1, 0f));
 		}
 
-		// 
+		// Start stealing
 		if (Input.GetKeyDown("space")) {
 			animator.SetBool("grab", true);
 		}
