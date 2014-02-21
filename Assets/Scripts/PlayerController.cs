@@ -24,13 +24,13 @@ public class PlayerController : MonoBehaviour {
 		if (speed > 0)
 			transform.rotation = Quaternion.LookRotation(Vector3.forward, rigidbody2D.velocity);
 
-
 		// TODO: Change key events to be handled with the input manager (using KeyCode) so player can remap keys in game
 		if (Input.GetKey("up")) {
 			rigidbody2D.AddForce(new Vector2(0f, move_force));
 		}
 		if (Input.GetKey("down")) {
 			rigidbody2D.AddForce(new Vector2(0f, move_force * -1));
+
 		}
 		if (Input.GetKey("right")) {
 			rigidbody2D.AddForce(new Vector2(move_force, 0f));
@@ -38,5 +38,17 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetKey("left")) {
 			rigidbody2D.AddForce(new Vector2(move_force * -1, 0f));
 		}
+
+		// 
+		if (Input.GetKeyDown("space")) {
+			animator.SetBool("grab", true);
+		}
+	}
+
+	void grab() {
+		animator.SetBool ("grab", false);
+
+		// do grab item actions stuff here
+		// e.g. add item to stolen items list data structure and delete the item from the screen
 	}
 }
