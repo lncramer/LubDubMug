@@ -3,11 +3,16 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-	// Player fields
+	// Movement fields
 	float move_force = 20f; // force to apply to player when movement key is pressed
 	float speed; // velocity vector magnitude
 	Vector2 direction = new Vector2(0f,0f); // player direction
 	public Animator animator; // Mechanim animator for the player
+
+	// Grabbing mechanic fields
+	float grab_radius = 0.15f;
+	public Transform grab_check;
+	public LayerMask stealable;
 
 	// Use this for initialization
 	void Start () {
@@ -51,8 +56,12 @@ public class PlayerController : MonoBehaviour {
 
 	void grab() {
 		animator.SetBool ("grab", false);
-
-		// do grab item actions stuff here
-		// e.g. add item to stolen items list data structure and delete the item from the screen
+		// Check overlap between GrabPoint and objects on Grabable layer
+		Collider2D temp = Physics2D.OverlapCircle (grab_check.position, grab_radius, stealable);
+		// Check if temp is not null, if it is not then destroy the associated object
+		if (temp) {
+			// TODO: Store the object or object value
+			Destroy (temp.gameObject);
+		}
 	}
 }

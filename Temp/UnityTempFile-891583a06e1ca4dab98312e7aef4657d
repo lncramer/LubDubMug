@@ -37,6 +37,7 @@
 -define:UNITY_EDITOR
 -define:UNITY_EDITOR_OSX
 -define:UNITY_TEAM_LICENSE
+'Assets/ItemController.cs'
 'Assets/Scripts/PlayerController.cs'
 -r:'/Applications/Unity/Unity.app/Contents/Frameworks/Mono/lib/mono/unity/System.Runtime.Serialization.dll'
 -r:'/Applications/Unity/Unity.app/Contents/Frameworks/Mono/lib/mono/unity/System.Xml.Linq.dll'
