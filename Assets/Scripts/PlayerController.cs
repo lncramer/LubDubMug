@@ -61,7 +61,8 @@ public class PlayerController : MonoBehaviour {
 		// Check if temp is not null, if it is not then destroy the associated object
 		if (temp) {
 			// TODO: Store the object or object value
-			Destroy (temp.gameObject);
+			temp.gameObject.animation.Play ("Destroy");
+			Destroy (temp.gameObject, 0.03);
 		}
 	}
 }
